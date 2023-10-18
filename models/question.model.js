@@ -16,6 +16,26 @@ const questionSchema = new Schema(
       type: String,
       required: true,
     },
+    answer_a: {
+      type: String,
+      required: true,
+    },
+    answer_b: {
+      type: String,
+      required: true,
+    },
+    answer_c: {
+      type: String,
+      required: true,
+    },
+    answer_d: {
+      type: String,
+      required: true,
+    },
+    correct_answer: {
+      type: String,
+      required: true,
+    },
     media: {
       type: Object,
     },

@@ -52,6 +52,11 @@ exports.editQuestionService = async (details, id) => {
     }
 
     question.question = details.question;
+    question.answer_a = details.answer_a;
+    question.answer_b = details.answer_b;
+    question.answer_c = details.answer_c;
+    question.answer_d = details.answer_d;
+    question.correct_answer = details.correct_answer;
     await question.save();
     return question;
   } catch (error) {

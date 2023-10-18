@@ -52,13 +52,13 @@ exports.addTestService = async (CourseId, user) => {
     await Promise.all(
       shuffledQuestions.map(async (item) => {
         if (testQuestions.length < 30) {
-          const answer = await answerModel.find({
-            questionId: item.id,
-          });
-          const shuffledAnswers = shuffleArray(answer);
+          // const answer = await answerModel.find({
+          //   questionId: item.id,
+          // });
+          // const shuffledAnswers = shuffleArray(answer);
           const question = {
             question: item,
-            answers: shuffledAnswers,
+            // answers: shuffledAnswers,
             chosenAnswer: null,
             attempted: false,
             correctAnswer: false,
@@ -103,7 +103,12 @@ exports.addTestService = async (CourseId, user) => {
 };
 
 // Answer Question
-exports.answerTestService = async (testId, answerId, questionIndex) => {
+exports.answerTestService = async (
+  testId,
+  questionId,
+  answer,
+  questionIndex
+) => {
   try {
     const index = parseInt(questionIndex);
     const test = await testModel.findOne({ _id: testId });
@@ -116,18 +121,20 @@ exports.answerTestService = async (testId, answerId, questionIndex) => {
       return { error: new Error("Error: Test has ended") };
     }
 
-    const answer = await answerModel.findOne({ _id: answerId });
-    if (!answer) {
-      return { error: new Error("Error: Answer not found") };
+    const question = await questionModel.findOne({ _id: questionId });
+    if (!question) {
+      return { error: new Error("Error: Question not found") };
     }
 
     const totalQuestions = test.totalQuestions; // Retrieve totalQuestions from the test data
 
     if (index >= 0 && index < test.questions.length) {
-      const question = test.questions[index];
+      // const question = test.questions[index];
 
-      // Check if the chosen answer is correct
-      if (answer.isAnswer) {
+      // if (question.correct_answer === answer) {}
+
+      if (question.correct_answer === answer) {
+        // Check if the chosen answer is correct
         test.questions[index] = {
           ...test.questions[index],
           attempted: true,
@@ -136,14 +143,30 @@ exports.answerTestService = async (testId, answerId, questionIndex) => {
         };
 
         // Increase attempted question count
-        if (test.attemptedQuestions < totalQuestions) {
-          test.attemptedQuestions++;
+        if (!test.questions[index].attempted) {
+          if (test.attemptedQuestions < totalQuestions) {
+            test.attemptedQuestions++;
+          }
         }
+
+        let correct = 0;
+        let attempted = 0;
+
+        test.questions.map((item) => {
+          if (item.correctAnswer) {
+            correct++;
+          }
+          if (item.attempted) {
+            attempted++;
+          }
+        });
 
         // Increase correct answer count
         if (test.correctAnswers < totalQuestions) {
-          test.correctAnswers++;
+          test.correctAnswers = correct;
         }
+
+        test.attemptedQuestions = attempted;
 
         // Mark the test as ended when all questions have been attempted
         // if (test.attemptedQuestions === totalQuestions) {
@@ -163,9 +186,21 @@ exports.answerTestService = async (testId, answerId, questionIndex) => {
         };
 
         // Increase attempted question count
-        if (test.attemptedQuestions < totalQuestions) {
-          test.attemptedQuestions++;
+        if (!test.questions[index].attempted) {
+          if (test.attemptedQuestions < totalQuestions) {
+            test.attemptedQuestions++;
+          }
         }
+
+        let attempted = 0;
+
+        test.questions.map((item) => {
+          if (item.attempted) {
+            attempted++;
+          }
+        });
+
+        test.attemptedQuestions = attempted;
 
         // Save the updated test
         await test.save();

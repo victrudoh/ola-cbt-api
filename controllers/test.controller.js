@@ -102,10 +102,14 @@ module.exports = {
   postAnswerTestController: async (req, res, next) => {
     try {
       const { testId, answerId, index, questionId } = req.query;
+
+      const { answer } = req.body;
+
       const test = await testServices.answerTestService(
         testId,
-        // questionId,
-        answerId,
+        questionId,
+        answer,
+        // answerId,
         index
       );
 
