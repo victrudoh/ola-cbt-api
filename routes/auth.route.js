@@ -19,7 +19,11 @@ const isAuthenticated = require("../middleware/isAuthenticated");
 const { authorize } = require("../middleware/roleCheck");
 
 // Routes
-router.get("/ping", isAuthenticated, auth.getPingController);
+router.get(
+  "/ping",
+  // isAuthenticated,
+  auth.getPingController
+);
 
 // POST Signup
 router.post("/signup", validate(signUpSchema), auth.postSignupController);

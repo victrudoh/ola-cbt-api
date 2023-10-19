@@ -20,21 +20,29 @@ const validate = require("../middleware/validateSchema.middleware");
 // Routes
 router.get(
   "/ping",
-  isAuthenticated,
-  authorize("admin"),
+  // isAuthenticated,
+  // authorize("admin"),
   test.getPingController
 );
 
 // GET All Tests
-router.get("/", authorize("admin"), test.getAllTestsController);
+router.get(
+  "/",
+  // authorize("admin"),
+  test.getAllTestsController
+);
 
 // GET All Tests
-router.get("/one", authorize("admin"), test.getOneTestController);
+router.get(
+  "/one",
+  // authorize("admin"),
+  test.getOneTestController
+);
 
 // POST Signup
 router.post(
   "/add",
-  authorize("admin", "user"),
+  // authorize("admin", "user"),
   //   validate(addTestSchema),
   test.postAddTestController
 );
@@ -42,7 +50,7 @@ router.post(
 // PUT Signup
 router.get(
   "/answer",
-  authorize("admin", "user"),
+  // authorize("admin", "user"),
   //   validate(editTestSchema),
   test.postAnswerTestController
 );
@@ -50,7 +58,7 @@ router.get(
 // PUT Signup
 router.get(
   "/end",
-  authorize("admin", "user"),
+  // authorize("admin", "user"),
   //   validate(editTestSchema),
   test.postEndTestController
 );
@@ -58,7 +66,7 @@ router.get(
 // DELETE Signup
 router.delete(
   "/delete",
-  authorize("admin", "user"),
+  // authorize("admin", "user"),
   test.postDeleteTestController
 );
 

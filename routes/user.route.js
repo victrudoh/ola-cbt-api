@@ -43,6 +43,10 @@ router.get("/one", user.getOneUserController);
 // );
 
 // DELETE Signup
-router.delete("/delete", authorize("admin"), user.postDeleteUserController);
+router.delete(
+  "/delete",
+  // authorize("admin"),
+  user.postDeleteUserController
+);
 
 module.exports = router;

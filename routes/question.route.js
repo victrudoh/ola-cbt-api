@@ -23,21 +23,29 @@ const validate = require("../middleware/validateSchema.middleware");
 // Routes
 router.get(
   "/ping",
-  isAuthenticated,
-  authorize("admin"),
+  // isAuthenticated,
+  // authorize("admin"),
   question.getPingController
 );
 
 // GET All Questions
-router.get("/", authorize("admin"), question.getAllQuestionsController);
+router.get(
+  "/",
+  // authorize("admin"),
+  question.getAllQuestionsController
+);
 
 // GET All Questions
-router.get("/one", authorize("admin"), question.getOneQuestionController);
+router.get(
+  "/one",
+  // authorize("admin"),
+  question.getOneQuestionController
+);
 
 // POST Signup
 router.post(
   "/add",
-  authorize("admin"),
+  // authorize("admin"),
   validate(addQuestionSchema),
   question.postAddQuestionController
 );
@@ -45,7 +53,7 @@ router.post(
 // PUT Signup
 router.put(
   "/edit",
-  authorize("admin"),
+  // authorize("admin"),
   validate(editQuestionSchema),
   question.postEditQuestionController
 );
@@ -53,7 +61,7 @@ router.put(
 // DELETE Signup
 router.delete(
   "/delete",
-  authorize("admin"),
+  // authorize("admin"),
   question.postDeleteQuestionController
 );
 

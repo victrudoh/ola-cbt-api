@@ -23,21 +23,29 @@ const validate = require("../middleware/validateSchema.middleware");
 // Routes
 router.get(
   "/ping",
-  isAuthenticated,
-  authorize("admin"),
+  // isAuthenticated,
+  // authorize("admin"),
   course.getPingController
 );
 
 // GET All Courses
-router.get("/", authorize("admin"), course.getAllCoursesController);
+router.get(
+  "/",
+  // authorize("admin"),
+  course.getAllCoursesController
+);
 
 // GET All Courses
-router.get("/one", authorize("admin"), course.getOneCourseController);
+router.get(
+  "/one",
+  // authorize("admin"),
+  course.getOneCourseController
+);
 
 // POST Signup
 router.post(
   "/add",
-  authorize("admin"),
+  // authorize("admin"),
   validate(addCourseSchema),
   course.postAddCourseController
 );
@@ -45,12 +53,16 @@ router.post(
 // PUT Signup
 router.put(
   "/edit",
-  authorize("admin"),
+  // authorize("admin"),
   validate(editCourseSchema),
   course.postEditCourseController
 );
 
 // DELETE Signup
-router.delete("/delete", authorize("admin"), course.postDeleteCourseController);
+router.delete(
+  "/delete",
+  // authorize("admin"),
+  course.postDeleteCourseController
+);
 
 module.exports = router;
