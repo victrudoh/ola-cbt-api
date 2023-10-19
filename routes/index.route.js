@@ -5,6 +5,7 @@ const courseRouter = require("./course.route");
 const questionRouter = require("./question.route");
 const answerRouter = require("./answer.route");
 const testRouter = require("./test.route");
+const userRouter = require("./user.route");
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -20,4 +21,5 @@ module.exports = function (app) {
   app.use("/api/questions", questionRouter);
   app.use("/api/answers", answerRouter);
   app.use("/api/tests", testRouter);
+  app.use("/api/users", userRouter);
 };
