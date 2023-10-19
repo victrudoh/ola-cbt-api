@@ -24,7 +24,8 @@ module.exports = {
   //  All
   getAllQuestionsController: async (req, res, next) => {
     try {
-      const allQuestions = await questionServices.allQuestionsService();
+      const { courseId } = req.query;
+      const allQuestions = await questionServices.allQuestionsService(courseId);
 
       if (allQuestions?.error) {
         return sendError(res, 400, allQuestions?.error?.message);

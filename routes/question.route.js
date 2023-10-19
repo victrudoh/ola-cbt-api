@@ -30,7 +30,7 @@ router.get(
 
 // GET All Questions
 router.get(
-  "/",
+  "/all",
   // authorize("admin"),
   question.getAllQuestionsController
 );

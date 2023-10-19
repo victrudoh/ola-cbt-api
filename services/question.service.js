@@ -2,10 +2,13 @@
 const questionModel = require("../models/question.model");
 
 // All
-exports.allQuestionsService = async () => {
+exports.allQuestionsService = async (id) => {
   try {
-    const questions = await questionModel.find();
-    return questions;
+    const question = await questionModel.find({ courseId: id });
+    //  if (!question) {
+    //    return { error: new Error("Error: Questions not found") };
+    //  }
+    return question;
   } catch (error) {
     return { error: new Error(error) };
   }
