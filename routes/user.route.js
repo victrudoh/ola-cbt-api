@@ -10,7 +10,7 @@ const user = require("../controllers/user.controller");
 const router = express.Router();
 
 // schemas
-const { addUserSchema, editUserSchema } = require("../schemas/user.schema");
+// const { addUserSchema, editUserSchema } = require("../schemas/user.schema");
 
 // middleware
 const isAuthenticated = require("../middleware/isAuthenticated");
@@ -18,12 +18,7 @@ const { authorize } = require("../middleware/roleCheck");
 const validate = require("../middleware/validateSchema.middleware");
 
 // Routes
-router.get(
-  "/ping",
-  isAuthenticated,
-  authorize("admin"),
-  user.getPingController
-);
+router.get("/ping", user.getPingController);
 
 // GET All Users
 router.get("/", user.getAllUsersController);
