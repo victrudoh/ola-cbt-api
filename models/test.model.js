@@ -17,6 +17,9 @@ const testSchema = new Schema(
       ref: "Course",
       required: true,
     },
+    courseTitle: {
+      type: String,
+    },
     questions: [],
     testEnded: {
       type: Boolean,

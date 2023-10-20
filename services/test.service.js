@@ -34,6 +34,10 @@ exports.addTestService = async (CourseId, user) => {
       courseId: CourseId,
     });
 
+    const course = await courseModel.findOne({
+      _id: CourseId,
+    });
+
     let testQuestions = [];
 
     const usedIndexes = new Set(); // To keep track of used indexes
@@ -88,6 +92,7 @@ exports.addTestService = async (CourseId, user) => {
     const test = new testModel({
       userId: user,
       courseId: CourseId,
+      courseTitle: course.name,
       questions: testQuestions,
       totalQuestions: testQuestions.length,
     });
