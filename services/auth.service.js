@@ -46,26 +46,49 @@ exports.signupService = async (details) => {
 // LOGIN
 exports.loginService = async (details) => {
   try {
-    const { matric_no, password } = details;
+    const { matric_no, email, password } = details;
 
-    //   check if user exist
-    const user = await User.findOne({ matric_no: matric_no });
-    if (!user) {
-      return { error: new Error("Error: Invalid credentials") };
+    if (email) {
+      //   check if user exist
+      const user = await User.findOne({ email: email });
+      if (!user) {
+        return { error: new Error("Error: Invalid credentials") };
+      }
+
+      // validate password
+      const validatePassword = await bcrypt.compare(password, user.password);
+      if (!validatePassword)
+        return { error: new Error("Error: Invalid credentials") };
+
+      //   Generate JWT Token
+      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+
+      return {
+        user,
+        token,
+      };
+    } else if (matric_no) {
+      //   check if user exist
+      const user = await User.findOne({ matric_no: matric_no });
+      if (!user) {
+        return { error: new Error("Error: Invalid credentials") };
+      }
+
+      // validate password
+      const validatePassword = await bcrypt.compare(password, user.password);
+      if (!validatePassword)
+        return { error: new Error("Error: Invalid credentials.") };
+
+      //   Generate JWT Token
+      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+
+      return {
+        user,
+        token,
+      };
     }
 
-    // validate password
-    const validatePassword = await bcrypt.compare(password, user.password);
-    if (!validatePassword)
-      return { error: new Error("Error: Invalid credentials") };
-
-    //   Generate JWT Token
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-
-    return {
-      user,
-      token,
-    };
+    return { error: new Error("Error: Something went wrong.") };
   } catch (error) {
     return { error: new Error(error) };
   }
