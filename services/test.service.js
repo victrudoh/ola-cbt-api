@@ -38,6 +38,15 @@ exports.addTestService = async (CourseId, user) => {
       _id: CourseId,
     });
 
+    // check if user already took the test for the course
+    const testExist = await testModel.findOne({
+      courseId: CourseId,
+      userId: user,
+    });
+    if (testExist) {
+      return { error: new Error("Student already sat for this test") };
+    }
+
     let testQuestions = [];
 
     const usedIndexes = new Set(); // To keep track of used indexes
