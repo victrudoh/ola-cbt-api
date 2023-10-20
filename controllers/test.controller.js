@@ -75,8 +75,12 @@ module.exports = {
   // Add
   postAddTestController: async (req, res, next) => {
     try {
-      const { courseId } = req.query;
-      const test = await testServices.addTestService(courseId, req.user);
+      const { courseId, userId } = req.query;
+      const test = await testServices.addTestService(courseId, userId);
+      console.log(
+        "🚀 ~ file: test.controller.js:80 ~ postAddTestController: ~ req.user):",
+        req.user
+      );
 
       if (test?.error) {
         return sendError(res, 400, test?.error?.message);
