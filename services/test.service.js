@@ -1,6 +1,7 @@
 // Models
 const testModel = require("../models/test.model");
 const questionModel = require("../models/question.model");
+const courseModel = require("../models/course.model");
 const answerModel = require("../models/answer.model");
 const { ObjectId } = require("mongodb");
 
