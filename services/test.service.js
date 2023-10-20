@@ -86,7 +86,7 @@ exports.addTestService = async (CourseId, user) => {
 
     // create test
     const test = new testModel({
-      userId: user.id,
+      userId: user,
       courseId: CourseId,
       questions: testQuestions,
       totalQuestions: testQuestions.length,
