@@ -48,7 +48,7 @@ router.post(
 );
 
 // PUT Signup
-router.get(
+router.post(
   "/answer",
   // authorize("admin", "user"),
   //   validate(editTestSchema),

@@ -77,10 +77,6 @@ module.exports = {
     try {
       const { courseId, userId } = req.query;
       const test = await testServices.addTestService(courseId, userId);
-      console.log(
-        "🚀 ~ file: test.controller.js:80 ~ postAddTestController: ~ req.user):",
-        req.user
-      );
 
       if (test?.error) {
         return sendError(res, 400, test?.error?.message);
