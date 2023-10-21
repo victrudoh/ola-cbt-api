@@ -72,31 +72,29 @@ exports.addTestService = async (CourseId, user) => {
 
     await Promise.all(
       shuffledQuestions.map(async (item) => {
-        if (testQuestions.length < 30) {
-          // const answer = await answerModel.find({
-          //   questionId: item.id,
-          // });
-          // const shuffledAnswers = shuffleArray(answer);
-          const question = {
-            question: item,
-            // answers: shuffledAnswers,
-            chosenAnswer: null,
-            attempted: false,
-            correctAnswer: false,
-          };
+        // if (testQuestions.length < 30) {
+        // const answer = await answerModel.find({
+        //   questionId: item.id,
+        // });
+        // const shuffledAnswers = shuffleArray(answer);
+        const question = {
+          question: item,
+          // answers: shuffledAnswers,
+          chosenAnswer: null,
+          attempted: false,
+          correctAnswer: false,
+        };
 
-          // Find an available random index
-          let randomIndex;
-          do {
-            randomIndex = Math.floor(
-              Math.random() * (testQuestions.length + 1)
-            );
-          } while (usedIndexes.has(randomIndex));
+        // Find an available random index
+        let randomIndex;
+        do {
+          randomIndex = Math.floor(Math.random() * (testQuestions.length + 1));
+        } while (usedIndexes.has(randomIndex));
 
-          // Insert the question at the chosen random index
-          testQuestions.splice(randomIndex, 0, question);
-          usedIndexes.add(randomIndex);
-        }
+        // Insert the question at the chosen random index
+        testQuestions.splice(randomIndex, 0, question);
+        usedIndexes.add(randomIndex);
+        // }
       })
     );
 
