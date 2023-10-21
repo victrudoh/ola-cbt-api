@@ -15,6 +15,9 @@ const testSchema = new Schema(
     studentName: {
       type: String,
     },
+    studentMatricNumber: {
+      type: String,
+    },
     courseId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Course",

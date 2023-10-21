@@ -109,6 +109,7 @@ exports.addTestService = async (CourseId, user) => {
     const test = new testModel({
       userId: user,
       studentName: name,
+      studentMatricNumber: getUser.matric_no,
       courseId: CourseId,
       courseTitle: course.name,
       questions: testQuestions,
