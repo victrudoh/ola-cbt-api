@@ -101,9 +101,9 @@ exports.addTestService = async (CourseId, user) => {
     );
 
     // Trim the array to ensure it doesn't exceed 30 elements
-    if (testQuestions.length > 30) {
-      testQuestions.splice(30);
-    }
+    // if (testQuestions.length > 30) {
+    //   testQuestions.splice(30);
+    // }
 
     // create test
     const test = new testModel({
