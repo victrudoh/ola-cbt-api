@@ -70,4 +70,11 @@ router.delete(
   test.postDeleteTestController
 );
 
+// GET All Tests by course
+router.get(
+  "/by-course",
+  // authorize("admin"),
+  test.getAllTestsByCourseController
+);
+
 module.exports = router;

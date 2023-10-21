@@ -184,4 +184,31 @@ module.exports = {
       });
     }
   },
+
+  //  All
+  getAllTestsByCourseController: async (req, res, next) => {
+    try {
+      const { courseId } = req.query;
+
+      const allTests = await testServices.allTestsByCourseService(courseId);
+
+      if (allTests?.error) {
+        return sendError(res, 400, allTests?.error?.message);
+      }
+
+      return res.status(200).send({
+        success: true,
+        message: "fetched all tests successfully",
+        data: {
+          allTests,
+        },
+      });
+    } catch (err) {
+      return res.status(500).send({
+        success: false,
+        message: "Something went wrong!",
+        errMessage: err.message,
+      });
+    }
+  },
 };
