@@ -78,6 +78,9 @@ module.exports = {
       const { courseId, userId } = req.query;
       const test = await testServices.addTestService(courseId, userId);
 
+      // const { courseId } = req.query;
+      // const test = await testServices.addTestService(courseId, req.user._id);
+
       if (test?.error) {
         return sendError(res, 400, test?.error?.message);
       }

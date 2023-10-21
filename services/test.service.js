@@ -2,6 +2,7 @@
 const testModel = require("../models/test.model");
 const questionModel = require("../models/question.model");
 const courseModel = require("../models/course.model");
+const userModel = require("../models/user.model");
 const answerModel = require("../models/answer.model");
 const { ObjectId } = require("mongodb");
 
@@ -31,6 +32,12 @@ exports.oneTestService = async (id) => {
 // Add
 exports.addTestService = async (CourseId, user) => {
   try {
+    const getUser = await userModel.findOne({
+      _id: user,
+    });
+
+    const name = `${getUser.firstname} ${getUser.lastname}`;
+
     const questions = await questionModel.find({
       courseId: CourseId,
     });
@@ -101,15 +108,16 @@ exports.addTestService = async (CourseId, user) => {
     // create test
     const test = new testModel({
       userId: user,
+      studentName: name,
       courseId: CourseId,
       courseTitle: course.name,
       questions: testQuestions,
       totalQuestions: testQuestions.length,
     });
-    console.log(
-      "🚀 ~ file: test.service.js:95 ~ exports.addTestService= ~ test:",
-      test
-    );
+    // console.log(
+    //   "🚀 ~ file: test.service.js:95 ~ exports.addTestService= ~ test:",
+    //   test
+    // );
     await test.save();
     return test;
   } catch (error) {
@@ -255,6 +263,17 @@ exports.deleteTestService = async (id) => {
       return { error: new Error("Error: Test not found") };
     }
     return test;
+  } catch (error) {
+    return { error: new Error(error) };
+  }
+};
+
+// Tests by Course
+exports.allTestsByCourseService = async (id) => {
+  try {
+    const tests = await testModel.find({ courseId: id });
+
+    return tests;
   } catch (error) {
     return { error: new Error(error) };
   }

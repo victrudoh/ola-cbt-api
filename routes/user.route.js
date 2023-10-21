@@ -23,8 +23,11 @@ router.get("/ping", user.getPingController);
 // GET All Users
 router.get("/", user.getAllUsersController);
 
-// GET All Users
+// GET One Users
 router.get("/one", user.getOneUserController);
+
+// GET One User tests
+router.get("/tests", user.getOneUserTestsService);
 
 // POST Signup
 // router.post(

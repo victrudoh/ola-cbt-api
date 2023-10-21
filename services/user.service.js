@@ -1,5 +1,6 @@
 // Models
 const userModel = require("../models/user.model");
+const testModel = require("../models/test.model");
 
 // All
 exports.allUsersService = async () => {
@@ -65,6 +66,20 @@ exports.deleteUserService = async (id) => {
       return { error: new Error("Error: User not found") };
     }
     return user;
+  } catch (error) {
+    return { error: new Error(error) };
+  }
+};
+
+// one user tests
+exports.oneUserTestsService = async (id) => {
+  try {
+    const user = await userModel.findById({ _id: id });
+    const tests = await testModel.find({ userId: id });
+    if (!user) {
+      return { error: new Error("Error: User not found") };
+    }
+    return tests;
   } catch (error) {
     return { error: new Error(error) };
   }

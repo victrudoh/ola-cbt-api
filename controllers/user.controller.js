@@ -145,4 +145,30 @@ module.exports = {
       });
     }
   },
+
+  // One user tests
+  getOneUserTestsService: async (req, res, next) => {
+    try {
+      const { id } = req.query;
+      const test = await userServices.oneUserTestsService(id);
+
+      if (test?.error) {
+        return sendError(res, 400, test?.error?.message);
+      }
+
+      return res.status(200).send({
+        success: true,
+        message: "Fetched user tests successfully",
+        data: {
+          test,
+        },
+      });
+    } catch (err) {
+      return res.status(500).send({
+        success: false,
+        message: "Something went wrong!",
+        errMessage: err.message,
+      });
+    }
+  },
 };

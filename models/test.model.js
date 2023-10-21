@@ -12,6 +12,9 @@ const testSchema = new Schema(
       ref: "User",
       required: true,
     },
+    studentName: {
+      type: String,
+    },
     courseId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Course",
