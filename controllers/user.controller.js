@@ -72,6 +72,31 @@ module.exports = {
     }
   },
 
+  //  All students
+  getAllStudentsController: async (req, res, next) => {
+    try {
+      const allStudents = await userServices.allStudentsService();
+
+      if (allStudents?.error) {
+        return sendError(res, 400, allStudents?.error?.message);
+      }
+
+      return res.status(200).send({
+        success: true,
+        message: "fetched all students successfully",
+        data: {
+          allStudents,
+        },
+      });
+    } catch (err) {
+      return res.status(500).send({
+        success: false,
+        message: "Something went wrong!",
+        errMessage: err.message,
+      });
+    }
+  },
+
   // Add
   postAddUserController: async (req, res, next) => {
     try {

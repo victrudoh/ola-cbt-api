@@ -25,6 +25,16 @@ exports.oneUserService = async (id) => {
   }
 };
 
+// All students
+exports.allStudentsService = async () => {
+  try {
+    const users = await userModel.find({ role: "user" });
+    return users;
+  } catch (error) {
+    return { error: new Error(error) };
+  }
+};
+
 // Add
 exports.addUserService = async (details) => {
   try {

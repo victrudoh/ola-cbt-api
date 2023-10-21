@@ -26,6 +26,9 @@ router.get("/", user.getAllUsersController);
 // GET One Users
 router.get("/one", user.getOneUserController);
 
+// GET All Students
+router.get("/students", user.getAllStudentsController);
+
 // GET One User tests
 router.get("/tests", user.getOneUserTestsService);
 
